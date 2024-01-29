@@ -1,0 +1,7 @@
+{
+  "name": "countProd",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
