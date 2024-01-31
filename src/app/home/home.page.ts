@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { IonicModule, MenuController } from '@ionic/angular';
+import { IonicModule, MenuController, Platform } from '@ionic/angular';
 import { ProdutosComponent } from '../components/produtos/produtos.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -37,12 +37,17 @@ export class HomePage implements OnInit{
     'Novembro',
     'Dezembro'
   ]
-  constructor(private menu: MenuController) {}
+  constructor(private menu: MenuController, private platform: Platform) {}
   ngOnInit(): void {
-    this.menu.open();
+    this.menu.open('menu');
    
   }
 
+  initializeApp() {
+    this.platform.ready().then(() => {
+        this.menu.open('menu');
+    });
+}
   mesSelecionado(mes: string){
     this.show = true;
     this.mesOK = mes;

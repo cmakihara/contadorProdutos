@@ -1,12 +1,12 @@
-<ion-menu contentId="main-content" >
-  <ion-header>
-    <ion-toolbar color="tertiary">
+<ion-menu contentId="main-content" *ngIf="show">
+  <ion-header id="header3" >
+    <ion-toolbar color= "gray" id="header3" >
       <ion-title>Periodo</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content color="tertiary" class="ion-padding">
+  <ion-content  color="light" class="ion-padding" id="content1">
     <ion-item *ngFor="let mes of meses"
-    (click)="mesSelecionado(mes)" color="tertiary">
+    (click)="mesSelecionado(mes)" color="gray" id="item1">
       <ion-label>
       </ion-label>  
       <span>
@@ -15,18 +15,29 @@
     </ion-item>
   </ion-content>
 </ion-menu>
-<div class="ion-page" id="main-content">
+<div class="ion-page" id="main-content" >
   <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+      <ion-buttons slot="start" >
+        <ion-menu-button ></ion-menu-button>
       </ion-buttons>
       <ion-title>{{ mesOK }}</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content *ngIf="!show" >
-    <h1>Selecione o periodo no MENU</h1>   
+  <ion-content *ngIf="!show" color="light" class="ion-padding2"> 
+
+
+    <ion-item *ngFor="let mes of meses"
+    (click)="mesSelecionado(mes)"  color="gray">
+      <ion-label>
+      </ion-label>  
+      <span>
+        {{mes}}        
+      </span>
+    </ion-item>
   </ion-content>
+
+
   <ion-content *ngIf="show">
     <app-produtos [mesSelected]="mesOK"></app-produtos>    
   </ion-content>
