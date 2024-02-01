@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -118,9 +118,10 @@ export class ProdutosComponent implements OnInit, OnChanges {
         this.roleMessage = `Dismissed with role: ${role}`;
     }
 
-    async deletarAllAlert() {
+    async deletarAllAlert(mes: string) {
+        
         const alert = await this.alertController.create({
-            header: 'Deseja apagar todos as produtos do Mês?',
+            header: 'Deseja apagar todos as produtos de '+mes+'?' ,
             buttons: [
                 {
                     text: 'Cancela',
@@ -134,7 +135,7 @@ export class ProdutosComponent implements OnInit, OnChanges {
                     role: 'confirm',
                     handler: () => {
                         this.handlerMessage = 'Alert confirmed';
-                        this.apagarTodosProdutos(this.mesSelected);
+                        this.apagarTodosProdutos(mes);
                     },
                 },
             ],

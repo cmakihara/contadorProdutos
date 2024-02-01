@@ -37,7 +37,11 @@ export class HomePage implements OnInit{
     'Novembro',
     'Dezembro'
   ]
-  constructor(private menu: MenuController, private platform: Platform) {}
+  constructor(private menu: MenuController,
+              private platform: Platform,
+              private produtoComp: ProdutosComponent              
+              ) {}
+
   ngOnInit(): void {
     this.menu.open('menu');
    
@@ -53,4 +57,11 @@ export class HomePage implements OnInit{
     this.mesOK = mes;
     this.menu.close();
   }
+
+  apagarMes(mes: string) {
+
+    this.produtoComp.deletarAllAlert(mes);
+  }
+
+
 }

@@ -14,6 +14,7 @@ import { SQLiteService } from './app/services/sqlite.service';
 import { StorageService } from './app/services/storage.service';
 import { DbnameVersionService } from './app/services/dbname-version.service';
 import { RouteReuseStrategy, provideRouter } from '@angular/router';
+import { ProdutosComponent } from './app/components/produtos/produtos.component';
 
 if (environment.production) {
     enableProdMode();
@@ -46,6 +47,7 @@ bootstrapApplication(AppComponent, {
     providers: [SQLiteService,
         InitializeAppService,
         StorageService,
+        ProdutosComponent,
         DbnameVersionService,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         importProvidersFrom(IonicModule.forRoot({})),
