@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injectable, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlertController, IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule, ToastController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
 import { Produto } from '../../models/produto';
@@ -25,7 +25,8 @@ export class ProdutosComponent implements OnInit, OnChanges {
     roleMessage = '';
 
     constructor(private storage: StorageService,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private toastController: ToastController
     ) { }
     ngOnChanges(changes: SimpleChanges): void {
         this.storage.getProdutos();
@@ -58,7 +59,9 @@ export class ProdutosComponent implements OnInit, OnChanges {
         let qtd = 0;
 
         await this.storage.addProduto(this.novoProduto, qtd, this.mesSelected)
+        this.salvarToast();
         this.novoProduto = ''
+
     }
 
     public editar(id: number, nome: string) {
@@ -69,17 +72,21 @@ export class ProdutosComponent implements OnInit, OnChanges {
 
     atualizarProduto() {
         this.storage.updateProdutoById(this.id_produto, this.novoProduto)
+        this.salvarToast();
         this.salvar = true;
         this.novoProduto = '';
         this.id_produto = 0;
+
     }
 
     apagarProduto(produto: Produto) {
         this.storage.deleteProdutoById(produto.id.toString())
+        this.deletarToast(produto.nome);
     }
 
     apagarTodosProdutos(mes: string) {
         this.storage.deleteProdutoByMes(mes)
+        this.deletarPorMesToast(mes);
     }
 
     public decrementa(id: number, quantidade: number) {
@@ -145,5 +152,31 @@ export class ProdutosComponent implements OnInit, OnChanges {
         this.roleMessage = `Dismissed with role: ${role}`;
     }
 
+    async salvarToast() {
+        const toast = await this.toastController.create({
+            message: this.novoProduto + ' Salvo!',
+            duration: 1500,
+            position: 'middle',
+        });
+        await toast.present();
+    }
+
+    async deletarToast(produto: string) {
+        const toast = await this.toastController.create({
+            message: produto + ' Apagado!',
+            duration: 1500,
+            position: 'middle',
+        });
+        await toast.present();
+    }
+
+    async deletarPorMesToast(mes: string) {
+        const toast = await this.toastController.create({
+            message: mes + ' Apagado!',
+            duration: 1500,
+            position: 'middle',
+        });
+        await toast.present();
+    }
 
 }
